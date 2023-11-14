@@ -3,9 +3,15 @@ import psycopg2
 from psycopg2 import sql
 
 # Fazendo a requisição
-url = 'https://dadosabertos.camara.leg.br/api/v2/deputados?idLegislatura=56&ordenarPor=nome'
+
+url = 'https://dadosabertos.camara.leg.br/api/v2/deputados'
+
+params = {'idLegislatura':'56'}
+
+# params = {'dataInicio':'2020-01-01','dataFim':'2020-12-31'}
+
 try:
-    response = requests.get(url)
+    response = requests.get(url,params=params)
     response.raise_for_status()
 except requests.exceptions.RequestException as e:
     print(f"Erro ao fazer a requisição: {e}")
