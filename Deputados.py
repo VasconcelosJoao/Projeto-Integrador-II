@@ -6,7 +6,7 @@ from psycopg2 import sql
 
 url = 'https://dadosabertos.camara.leg.br/api/v2/deputados'
 
-params = {'idLegislatura':'56'}
+params = {'idLegislatura':'56','ordenarPor':'id'}
 
 # params = {'dataInicio':'2020-01-01','dataFim':'2020-12-31'}
 
