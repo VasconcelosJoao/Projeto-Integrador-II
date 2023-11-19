@@ -16,11 +16,12 @@ cur = conn.cursor()
 cur.execute("""
     CREATE TABLE IF NOT EXISTS gastos_estranhos (
         id SERIAL PRIMARY KEY,
-        id_deputado INTEGER,
+        id_deputado INTEGER REFERENCES deputados(id),
         data DATE,
         valor FLOAT,
         tipoDespesa VARCHAR(255),
-        codDocumento INTEGER
+        codDocumento INTEGER,
+        partido VARCHAR(50)
     )
 """)
 conn.commit()
@@ -34,9 +35,9 @@ rows = cur.fetchall()
 # Inserindo as linhas estranhas na nova tabela e removendo da tabela original
 for row in rows:
     cur.execute("""
-        INSERT INTO gastos_estranhos (id_deputado, data, valor, tipoDespesa, codDocumento) 
-        VALUES (%s, %s, %s, %s, %s)
-    """, (row[1], row[2], row[3], row[4], row[5]))
+        INSERT INTO gastos_estranhos (id_deputado, data, valor, tipoDespesa, codDocumento, partido) 
+        VALUES (%s, %s, %s, %s, %s, %s)
+    """, (row[1], row[2], row[3], row[4], row[5], row[6]))
     cur.execute("""
         DELETE FROM gastos WHERE id = %s
     """, (row[0],))

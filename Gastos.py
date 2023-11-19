@@ -23,20 +23,23 @@ cur.execute("""
         data DATE,
         valor FLOAT,
         tipoDespesa VARCHAR(255),
-        codDocumento INTEGER
+        codDocumento INTEGER,
+        partido VARCHAR(50)
     )
 """)
 conn.commit()  # Confirmar a transação após a criação da tabela
 
-# Selecionando todos os IDs de deputados
-cur.execute("SELECT id FROM deputados")
+# Selecionando todos os IDs de deputados e seus partidos
+cur.execute("SELECT id, partido FROM deputados")
 deputados = cur.fetchall()
-
+count = 0
 # Para cada deputado
 for deputado in deputados:
     id_deputado = deputado[0]
+    partido = deputado[1]  # Buscando o partido do deputado
     pagina = 1
-
+    count += 1
+    print(count)
     while True:
         # Fazendo a requisição para a API
         url = f'https://dadosabertos.camara.leg.br/api/v2/deputados/{id_deputado}/despesas'
@@ -51,16 +54,16 @@ for deputado in deputados:
         # Para cada gasto do deputado
         for gasto in data['dados']:
             # Se gasto['dataDocumento'] não for None, converter para um objeto datetime
-            if gasto['dataDocumento'] is not None:
-                data_gasto = datetime.strptime(gasto['dataDocumento'], '%Y-%m-%d')
+            # if gasto['dataDocumento'] is not None:
+            #     data_gasto = datetime.strptime(gasto['dataDocumento'], '%Y-%m-%d')
 
-                # Se o ano do gasto for 2020, inserir o gasto na tabela gastos
-                if data_gasto.year == 2020:
-                    cur.execute("""
-                        INSERT INTO gastos (id_deputado, data, valor, tipoDespesa, codDocumento) 
-                        VALUES (%s, %s, %s, %s, %s)
-                    """, (id_deputado, gasto['dataDocumento'], gasto['valorLiquido'], gasto['tipoDespesa'], gasto['codDocumento']))
-                    conn.commit()  # Confirmar a transação após cada inserção
+            #     # Se o ano do gasto for 2020, inserir o gasto na tabela gastos
+            #     if data_gasto.year == 2020:
+            cur.execute("""
+                INSERT INTO gastos (id_deputado, data, valor, tipoDespesa, codDocumento, partido) 
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (id_deputado, gasto['dataDocumento'], gasto['valorLiquido'], gasto['tipoDespesa'], gasto['codDocumento'], partido))
+            conn.commit()  # Confirmar a transação após cada inserção
 
         # Ir para a próxima página
         pagina += 1
