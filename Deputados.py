@@ -34,7 +34,7 @@ try:
             CREATE TABLE IF NOT EXISTS deputados (
                 id SERIAL PRIMARY KEY,
                 nome VARCHAR(255),
-                partido VARCHAR(50)
+                partido VARCHAR(50) REFERENCES partidos(sigla)
             )
             """
             cur.execute(table_create_query)
