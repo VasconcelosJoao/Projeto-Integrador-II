@@ -9,7 +9,7 @@ with psycopg2.connect(
     host="localhost",
     port="5432"
 ) as conn:
-    with conn.cursor() as cur: 
+    with conn.cursor() as cur:
         # Criando a tabela gastos se ela não existir
         cur.execute("""
             CREATE TABLE IF NOT EXISTS gastos (
@@ -38,7 +38,8 @@ with psycopg2.connect(
             while True:
                 # Fazendo a requisição para a API
                 url = f'https://dadosabertos.camara.leg.br/api/v2/deputados/{id_deputado}/despesas'
-                params = {'ano':'2020', 'pagina': pagina, 'itens': 100, 'ordenarPor':'dataDocumento'}
+                params = {'ano': '2020', 'pagina': pagina,
+                          'itens': 100, 'ordenarPor': 'dataDocumento'}
                 response = requests.get(url, params=params)
                 data = response.json()
                 # Se não houver mais dados, sair do loop

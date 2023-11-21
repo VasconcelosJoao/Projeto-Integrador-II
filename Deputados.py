@@ -6,12 +6,12 @@ from psycopg2 import sql
 
 url = 'https://dadosabertos.camara.leg.br/api/v2/deputados'
 
-params = {'idLegislatura':'56','ordenarPor':'id'}
+params = {'idLegislatura': '56', 'ordenarPor': 'id'}
 
 # params = {'dataInicio':'2020-01-01','dataFim':'2020-12-31'}
 
 try:
-    response = requests.get(url,params=params)
+    response = requests.get(url, params=params)
     response.raise_for_status()
 except requests.exceptions.RequestException as e:
     print(f"Erro ao fazer a requisição: {e}")
@@ -46,7 +46,8 @@ try:
                     VALUES (%s, %s, %s)
                     ON CONFLICT (id) DO NOTHING
                 """)
-                cur.execute(insert_query, (deputado['id'], deputado['nome'], deputado['siglaPartido']))
+                cur.execute(
+                    insert_query, (deputado['id'], deputado['nome'], deputado['siglaPartido']))
 
             conn.commit()
 except psycopg2.Error as e:

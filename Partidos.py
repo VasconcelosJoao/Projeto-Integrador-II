@@ -5,11 +5,11 @@ import psycopg2
 
 url = 'https://dadosabertos.camara.leg.br/api/v2/partidos'
 
-params = {'idLegislatura':'56','ordenarPor':'sigla', 'itens': 100}
+params = {'idLegislatura': '56', 'ordenarPor': 'sigla', 'itens': 100}
 
 
 try:
-    response = requests.get(url,params=params)
+    response = requests.get(url, params=params)
     response.raise_for_status()
 except requests.exceptions.RequestException as e:
     print(f"Erro ao fazer a requisição: {e}")

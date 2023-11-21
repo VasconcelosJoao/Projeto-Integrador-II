@@ -9,7 +9,7 @@ with psycopg2.connect(
     host="localhost",
     port="5432"
 )as conn:
-    with conn.cursor() as cur: 
+    with conn.cursor() as cur:
         # Criando a tabela gastos se ela não existir
 
         cur.execute("""
