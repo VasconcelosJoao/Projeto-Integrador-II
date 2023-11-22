@@ -28,13 +28,10 @@ with psycopg2.connect(
         cur.execute("SELECT id, partido FROM deputados")
         deputados = cur.fetchall()
         # Para cada deputado
-        Count = 0
         for deputado in deputados:
             id_deputado = deputado[0]
             partido = deputado[1]  # Buscando o partido do deputado
             pagina = 1
-            Count += 1
-            print(Count)
             while True:
                 # Fazendo a requisição para a API
                 url = f'https://dadosabertos.camara.leg.br/api/v2/deputados/{id_deputado}/despesas'

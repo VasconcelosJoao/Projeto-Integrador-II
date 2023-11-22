@@ -1,11 +1,3 @@
-# Projeto Integrador II Big Data e Inteligência Analítica
-
-## Introdução
-Projetos em Big Data não envolvem somente a análise dos dados e / ou apresentação de gráficos. Os dados precisam ser obtidos, armazenados, processados e 
-partir dos mesmos obter informações relevantes. 
-
-O objetivo deste projeto é, utilizando dados de uma base publica da câmara dos deputados, obter informações relevantes sobre os gastos públicos. O aluno deverá obter os dados, armazená-los em uma base, processar eles utilizando algoritmos de machine Learning e apresentar gráficos e tabelas resumo. 
-
 ## Desenvolvimento do Projeto Integrador 2
  
 Para desenvolver o seu projeto você deverá executar as seguintes fases:
